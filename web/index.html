@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neural Style</title>
+<link rel="stylesheet" href="gstatic/add-ons1.css">
+<style>
+    .main {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        left: 0;
+        right: 10px;
+        top: 0;
+    }
+
+    .main > * {
+        position: relative;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    form {
+        border-right: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+    table {
+        border: none;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+        padding: 6px 10px;
+        border: 1px solid #ddd;
+        word-break: break-all;
+        min-width: 64px;
+    }
+
+    table tr {
+        background-color: #fff;
+        border-top: 1px solid #ccc
+    }
+
+    table tr:nth-child(2n) {
+        background-color: #f8f8f8
+    }
+
+</style>
+</head>
+<body>
+<div class="main">
+    <form>
+        <div class="block form-group">
+            <label for="contentImg">Content</label>
+            <input type="file" id="contentImg" name="contentImg">
+        </div>
+        <div class="block form-group">
+            <label for="filterImg">Filter</label>
+            <input type="file" id="filterImg" name="filterImg">
+        </div>
+        <div class="block form-group">
+            <label for="filterScale">Image Scale</label>
+            <select id="filterScale" name="filterScale">
+                <option value="0.1">0.10</option>
+                <option value="0.25">0.25</option>
+                <option value="0.5">0.50</option>
+                <option value="0.75">0.75</option>
+                <option selected value="1">1.00</option>
+                <option value="2">2.00</option>
+                <option value="3">3.00</option>
+                <option value="4">4.00</option>
+                <option value="8">8.00</option>
+            </select>
+        </div>
+        <div class="block form-group">
+            <label for="sizeInput">Image Size</label>
+            <input type="number" value="512" min="8" max="9999" id="sizeInput" name="sizeInput">
+        </div>
+        <div class="block form-group">
+            <label for="filterWeight">Filter Weight</label>
+            <select id="filterWeight" name="filterWeight">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option selected value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="2000">2000</option>
+                <option value="3000">3000</option>
+            </select>
+        </div>
+        <div class="block form-group">
+            <label>Initial State</label>
+            <div>
+                <input type="radio" name="initialState" value="image" id="initialImage" checked>
+                <label for="initialImage">Image</label>
+            </div>
+            <div>
+                <input type="radio" name="initialState" value="random" id="initialRandom">
+                <label for="initialRandom">Random</label>
+            </div>
+        </div>
+        <div class="block form-group">
+            <label>Gradients</label>
+            <div>
+                <input type="checkbox" name="normalizeGradients" id="normalizeGradients">
+                <label for="normalizeGradients">Normalize</label>
+            </div>
+        </div>
+        <div class="block form-group">
+            <label>Original Colors</label>
+            <div>
+                <input type="checkbox" name="originalColors" id="originalColors">
+                <label for="originalColors">Keep</label>
+            </div>
+        </div>
+        <div class="block form-group">
+            <input type="submit">
+        </div>
+    </form>
+    <table>
+        <tr><td id="contentTd"></td><td id="filterTd"></td><td></td><td></td></tr>
+        <tr><th>Source</th><th>Filter</th><th>Time</th><th>Output</th></tr>
+    </table>
+</div>
+
+<script type="application/dart" src="index.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>

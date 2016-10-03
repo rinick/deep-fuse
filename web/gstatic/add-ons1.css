@@ -117,35 +117,6 @@ a:hover {
   font: 11px/16px arial, sans-serif;
 }
 
-/* TABLES */
-
-table {
-  border-spacing: 0;
-}
-
-th {
-  border-bottom: 1px solid #acacac;
-  font-weight: normal;
-  padding: 2px 0 11px 0;
-  text-align: left;
-}
-
-td {
-  border-bottom: 1px solid #ebebeb;
-  padding: 11px 0;
-}
-
-tr:last-child > td, tr:last-child > th {
-  border-bottom: 0;
-}
-
-table.layout th,
-table.layout td {
-  border: 0;
-  padding: 0;
-  vertical-align: top;
-}
-
 /* BUTTONS */
 
 .button,
@@ -612,7 +583,7 @@ select {
   white-space: nowrap;
 }
 
-select:-ms-expand {
+select::-ms-expand{
     display: none;
 }
 
@@ -734,7 +705,7 @@ select[size] {
 }
 
 select[multiple]:disabled
-select[size]: disabled {
+select[size]:disabled {
   background: #fff;
   opacity: 1;
 }

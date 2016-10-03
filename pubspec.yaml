@@ -1,0 +1,14 @@
+name: neural_style_server
+version: 0.1.0
+description: >
+  web server for neural style
+author: rinick <rinick@gmail.com>
+homepage: https://github.com/rinick/neural-style-server
+
+dependencies:
+  browser: ^0.10.0
+  mime: ^0.9.3
+  http_server: ^0.9.6
+transformers:
+- $dart2js:
+    commandLineOptions: [--no-frequency-based-minification]
