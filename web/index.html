@@ -5,6 +5,9 @@
 <title>Neural Style</title>
 <link rel="stylesheet" href="gstatic/add-ons1.css">
 <style>
+    html, body {
+        overflow: hidden;
+    }
     .main {
         position: absolute;
         display: flex;
@@ -12,26 +15,42 @@
         left: 0;
         right: 10px;
         top: 0;
+        margin-bottom: 10px;
     }
+    body > * {
+        position: absolute;
+        width: 100%;
+        height: 100%;
 
+    }
+    .scroller {
+        overflow: auto;
+    }
     .main > * {
         position: relative;
         margin-left: 10px;
         margin-top: 10px;
     }
 
+    #tableDiv {
+        flex: 1 1 320px;
+    }
+
     form {
         border-right: 1px solid #ddd;
         padding: 10px;
+        width: 250px;
     }
 
     img {
         max-width: 100%;
     }
+
     table {
         border: none;
         border-spacing: 0;
         border-collapse: collapse;
+        width: 100%;
     }
 
     table th,
@@ -39,6 +58,7 @@
         padding: 6px 10px;
         border: 1px solid #ddd;
         word-break: break-all;
+        max-width: 512px;
         min-width: 64px;
     }
 
@@ -51,18 +71,20 @@
         background-color: #f8f8f8
     }
 
+
 </style>
 </head>
 <body>
+<div class="scroller">
 <div class="main">
     <form>
         <div class="block form-group">
-            <label for="contentImg">Content</label>
-            <input type="file" id="contentImg" name="contentImg">
+            <label for="contentFile">Content</label>
+            <input type="file" id="contentFile" name="contentFile">
         </div>
         <div class="block form-group">
-            <label for="filterImg">Filter</label>
-            <input type="file" id="filterImg" name="filterImg">
+            <label for="filterFile">Filter</label>
+            <input type="file" id="filterFile" name="filterFile">
         </div>
         <div class="block form-group">
             <label for="filterScale">Image Scale</label>
@@ -123,15 +145,18 @@
             </div>
         </div>
         <div class="block form-group">
-            <input type="submit">
+            <input type="submit" style="width:100%">
         </div>
     </form>
-    <table>
-        <tr><td id="contentTd"></td><td id="filterTd"></td><td></td><td></td></tr>
-        <tr><th>Source</th><th>Filter</th><th>Time</th><th>Output</th></tr>
-    </table>
+    <div id="tableDiv">
+        <table>
+            <tr><td></td><td></td><td><img id="contentImg"></td><td><img id="filterImg"></td></tr>
+            <tr><th>Result</th><th>Info</th><th>Source</th><th>Filter</th></tr>
+        </table>
+    </div>
 </div>
-
+</div>
+<iframe id="fullImg" style="display: none"></iframe>
 <script type="application/dart" src="index.dart"></script>
 <script src="packages/browser/dart.js"></script>
 </body>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    html,body{
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: white;
+    }
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+</head>
+<body onclick="onBodyClick()">
+<img>
+<script>
+    document.querySelector('img').src = decodeURIComponent(location.hash.substring(1));
+    console.log( decodeURIComponent(location.hash.substring(1)));
+    function onBodyClick(){
+        window.parent.postMessage('close','*');
+    }
+</script>
+</body>
+</html>
