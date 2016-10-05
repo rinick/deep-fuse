@@ -1,4 +1,4 @@
-library neural_style_server;
+library neural_style_client;
 
 import 'dart:async';
 import 'dart:convert';
@@ -67,8 +67,10 @@ updateRow(Map row, TableRowElement tr) {
       new ImageElement(src: row['content'])..onClick.listen(onImageClicked));
   tr.addCell().append(
       new ImageElement(src: row['filter'])..onClick.listen(onImageClicked));
-  if (row['id'] is String) {
+  tr.dataset['id'] = row['id'];
+  if (row['running'] != null) {
     currentId = row['id'];
+    currentTr = tr;
   }
 }
 
@@ -81,6 +83,7 @@ onTimer(Timer t) {
 }
 
 onUpdateLoad(String str) {
+  if (str.length < 5) return;
   Map row = JSON.decode(str);
   if (row['id'] == currentId) {
     currentTr.cells[1].text = row['info'];

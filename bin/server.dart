@@ -1,8 +1,16 @@
+library neural_style_server;
+
+
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
-import 'package:path/path.dart' as Path;
 import 'package:mime/mime.dart' as Mime;
+import 'package:http_server/src/http_multipart_form_data.dart' as FormData;
+
+part 'task.dart';
+part 'init.dart';
+part 'last.dart';
+part 'upload.dart';
 
 String webDir = Platform.script
     .resolve('../web')
@@ -46,7 +54,9 @@ main(List<String> arguments) {
 
 handleRequest(HttpRequest request) async {
   try {
+
     String path = request.uri.path;
+    print(path);
     if (path == '/' || path == '') {
       path = '/index.html';
     }
@@ -58,8 +68,14 @@ handleRequest(HttpRequest request) async {
         await sendFile(request.response, new File(webDir + path));
       }
     } else {
-
-    }
+      if (path == '/init') {
+        await handleInit(request.response);
+      } else if (path == '/last') {
+        await handleLast(request.response);
+      } else if (path == '/upload') {
+        await handleUpload(request, request.response);
+      }
+}
   } catch (err) {
     print(err);
   }
@@ -70,12 +86,13 @@ handleRequest(HttpRequest request) async {
 sendFile(HttpResponse response, File file) async {
   print('sending file ${file.path}');
   try {
-    await file.openRead().listen((data) {
-      String mime = Mime.lookupMimeType(file.path);
-      response.headers.contentType = ContentType.parse(mime);
+    String mime = Mime.lookupMimeType(file.path);
+    response.headers.contentType = ContentType.parse(mime);
+    await for (List<int> data in await file.openRead()) {
       response.add(data);
-    }).asFuture();
+    };
   } catch (err) {
     response.statusCode = 404;
+    response.write('$err');
   }
 }

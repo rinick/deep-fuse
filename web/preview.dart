@@ -1,4 +1,4 @@
-part of neural_style_server;
+part of neural_style_client;
 
 class Preview {
   FileUploadInputElement uploader;
