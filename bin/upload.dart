@@ -11,7 +11,7 @@ handleUpload(HttpRequest request, HttpResponse response) async {
         part, defaultEncoding: UTF8);
   }).toList();
 
-  Map data = {};
+  Map info = {};
   List contentData;
   List filterData;
   String contentType = '';
@@ -21,24 +21,28 @@ handleUpload(HttpRequest request, HttpResponse response) async {
     String name = part.contentDisposition.parameters['name'];
     if (name == 'contentFile') {
       contentType = part.contentType.toString();
-      data['contentName'] = 'content.' + contentType
+      info['contentName'] = 'content.' + contentType
           .split('/')
           .last;
       contentData = await part.fold([], (b, s) => b..addAll(s));
     } else if (name == 'filterFile') {
       filterType = part.contentType.toString();
-      data['filterName'] = 'filter.' + filterType
+      info['filterName'] = 'filter.' + filterType
           .split('/')
           .last;
       filterData = await part.fold([], (b, s) => b..addAll(s));
     } else if (part.isText) {
-      data[name] = await part.join();
+      info[name] = await part.join();
     }
   }
 
-  Task task = new Task(data);
-  task.create();
-  if (!filterType.startsWith('image/') || !contentType.startsWith('image/')) {
+  Task task = new Task(info);
 
+  if (!filterType.startsWith('image/') || !contentType.startsWith('image/')) {
+    info['error'] = 'invalid image';
+    task.create(); // save the error message;
+    return;
   }
+  task.create();
+  task.start(contentData, filterData);
 }

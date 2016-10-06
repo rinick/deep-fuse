@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Neural Style</title>
-<link rel="stylesheet" href="gstatic/add-ons1.css">
+<link rel="stylesheet" href="asserts/add-ons1.css">
 <style>
     html, body {
         overflow: hidden;
@@ -60,6 +60,7 @@
         word-break: break-all;
         max-width: 512px;
         min-width: 64px;
+        white-space: pre-wrap;
     }
 
     table tr {
@@ -79,11 +80,16 @@
 <div class="main">
     <form>
         <div class="block form-group">
+            <input type="submit" style="width:100%">
+        </div>
+        <div class="block form-group">
             <label for="contentFile">Content</label>
+            <img id="contentImg">
             <input type="file" id="contentFile" name="contentFile">
         </div>
         <div class="block form-group">
             <label for="filterFile">Filter</label>
+            <img id="filterImg">
             <input type="file" id="filterFile" name="filterFile">
         </div>
         <div class="block form-group">
@@ -150,7 +156,6 @@
     </form>
     <div id="tableDiv">
         <table>
-            <tr><td></td><td></td><td><img id="contentImg"></td><td><img id="filterImg"></td></tr>
             <tr><th>Result</th><th>Info</th><th>Source</th><th>Filter</th></tr>
         </table>
     </div>

@@ -68,7 +68,7 @@ updateRow(Map row, TableRowElement tr) {
   tr.addCell().append(
       new ImageElement(src: row['filter'])..onClick.listen(onImageClicked));
   tr.dataset['id'] = row['id'];
-  if (row['running'] != null) {
+  if (row['running'] == true) {
     currentId = row['id'];
     currentTr = tr;
   }
@@ -90,7 +90,7 @@ onUpdateLoad(String str) {
     (currentTr.cells[0].querySelector('img') as ImageElement).src =
     row['result'];
   } else {
-    TableRowElement tr = table.insertRow(2);
+    TableRowElement tr = table.insertRow(1);
     updateRow(row, tr);
   }
 }
