@@ -17,6 +17,14 @@ TableElement table;
 TableRowElement currentTr;
 String currentId;
 
+Map translation;
+
+String translate(String str) {
+  if (translation != null && translation.containsKey(str)) {
+    return translation[str];
+  }
+  return str;
+}
 
 main() {
   contentPreview = new Preview(document.querySelector('#contentFile'),
@@ -27,11 +35,15 @@ main() {
   table = document.querySelector('table');
   form = document.querySelector('form');
 
+  Element translationInput = document.querySelector('#translation');
+  if (translationInput is InputElement) {
+    translation = JSON.decode(translationInput.value);
+  }
+
   form.onSubmit.listen(onFormSubmit);
 
   HttpRequest.getString('/init').then(onInitLoad);
   new Timer.periodic(new Duration(seconds: 5), onTimer);
-
 }
 
 onFormSubmit(Event e) {
@@ -59,7 +71,8 @@ onInitLoad(String str) {
 updateRow(Map row, TableRowElement tr) {
   tr.addCell().append(
       new ImageElement(src: row['result'])..onClick.listen(onImageClicked));
-  tr.addCell().appendText(row['info']);
+  tr.addCell().appendText((row['info'] as String).replaceFirst(
+      'iteration', translate('iteration')));
   tr.addCell().append(
       new ImageElement(src: row['content'])..onClick.listen(onImageClicked));
   tr.addCell().append(

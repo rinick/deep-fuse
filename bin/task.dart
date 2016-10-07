@@ -40,13 +40,13 @@ class Task {
     info['running'] = running;
     info['content'] = "$id/${info['contentName']}";
     info['style'] = "$id/${info['styleName']}";
-    info['info'] = info['date'] + '\n' + info['time'] + '\n+ $iter';
+    info['info'] = info['date'] + '\n' + info['time'] + '\niteration: $iter';
     if (iter < outputStep) {
       info['result'] = 'asserts/waiting.gif';
     } else if (iter == 1000) {
       info['result'] = '$id/output.png';
     } else {
-      info['result'] = '$id/output_${(iter ~/ outputStep) * outputStep}.png';
+      info['result'] = '$id/output_$currentOutIter.png';
     }
   }
 
@@ -89,12 +89,22 @@ class Task {
     process.stderr.listen(onStdError);
   }
 
+  int currentOutIter = 0;
+
   onStdOut(List<int> data) {
     String str = UTF8.decode(data);
     print(str.trim());
     List<Match> matchs = iterReg.allMatches(str).toList();
     if (matchs.isNotEmpty) {
       iter = int.parse(matchs.last.group(1));
+
+      int outIter = (iter ~/ outputStep) * outputStep;
+      if (outIter > currentOutIter) {
+        if (currentOutIter % 50 != 0) {
+          (new File('$historyDir/$id/output_$currentOutIter.png')).delete();
+        }
+        currentOutIter = outIter;
+      }
     }
   }
 

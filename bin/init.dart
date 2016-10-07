@@ -55,7 +55,7 @@ handleInit(HttpResponse response) async {
       File infoFile = new File(historyDir + '/' + id + '/info.json');
       Map info = JSON.decode(infoFile.readAsStringSync());
       row['id'] = id;
-      row['info'] = info['date'] + '\n' + info['time'] + '\n+ $iter';
+      row['info'] = info['date'] + '\n' + info['time'] + '\niteration: $iter';
       row['content'] = "$id/${info['contentName']}";
       row['style'] = "$id/${info['styleName']}";
       initResult.add(row);

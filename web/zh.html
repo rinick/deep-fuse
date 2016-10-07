@@ -78,22 +78,23 @@
 <body>
 <div class="scroller">
 <div class="main">
+    <input type="hidden" id="translation" value='{"iteration":"迭代次数"}'>
     <form>
         <div class="block form-group">
-            <input type="submit" style="width:100%">
+            <input type="submit"value="开始" style="width:100%">
         </div>
         <div class="block form-group">
-            <label for="contentFile">Content</label>
+            <label for="contentFile">内容图像</label>
             <img id="contentImg">
             <input type="file" id="contentFile" name="contentFile">
         </div>
         <div class="block form-group">
-            <label for="styleFile">Style</label>
+            <label for="styleFile">样式图像</label>
             <img id="styleImg">
             <input type="file" id="styleFile" name="styleFile">
         </div>
         <div class="block form-group">
-            <label for="style_scale">Style Scale</label>
+            <label for="style_scale">样式比例</label>
             <select id="style_scale" name="style_scale">
                 <option value="0.1">0.10</option>
                 <option value="0.25">0.25</option>
@@ -107,11 +108,11 @@
             </select>
         </div>
         <div class="block form-group">
-            <label for="image_size">Image Size</label>
+            <label for="image_size">输出尺寸</label>
             <input type="number" value="512" min="8" max="9999" id="image_size" name="image_size">
         </div>
         <div class="block form-group">
-            <label for="style_weight">Style Weight</label>
+            <label for="style_weight">样式权重</label>
             <select id="style_weight" name="style_weight">
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -126,37 +127,37 @@
             </select>
         </div>
         <div class="block form-group">
-            <label>Initial State</label>
+            <label>初始状态</label>
             <div>
                 <input type="radio" name="initial_state" value="image" id="initialImage" checked>
-                <label for="initialImage">Image</label>
+                <label for="initialImage">图像</label>
             </div>
             <div>
                 <input type="radio" name="initial_state" value="random" id="initialRandom">
-                <label for="initialRandom">Random</label>
+                <label for="initialRandom">随机</label>
             </div>
         </div>
         <div class="block form-group">
-            <label>Gradients</label>
+            <label>颜色渐变</label>
             <div>
                 <input type="checkbox" name="normalize_gradients" id="normalize_gradients">
-                <label for="normalize_gradients">Normalize</label>
+                <label for="normalize_gradients">归一化</label>
             </div>
         </div>
         <div class="block form-group">
-            <label>Original Colors</label>
+            <label>原始颜色</label>
             <div>
                 <input type="checkbox" name="original_colors" id="original_colors">
-                <label for="original_colors">Keep</label>
+                <label for="original_colors">保留</label>
             </div>
         </div>
         <div class="block form-group">
-            <input type="submit" style="width:100%">
+            <input type="submit" value="开始" style="width:100%">
         </div>
     </form>
     <div id="tableDiv">
         <table>
-            <tr><th>Result</th><th>Information</th><th>Source</th><th>Style</th></tr>
+            <tr><th>结果</th><th>信息</th><th>内容</th><th>样式</th></tr>
         </table>
     </div>
 </div>
