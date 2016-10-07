@@ -60,7 +60,7 @@
         word-break: break-all;
         max-width: 512px;
         min-width: 64px;
-        white-space: pre-wrap;
+        white-space: pre;
     }
 
     table tr {
@@ -88,13 +88,13 @@
             <input type="file" id="contentFile" name="contentFile">
         </div>
         <div class="block form-group">
-            <label for="filterFile">Filter</label>
-            <img id="filterImg">
-            <input type="file" id="filterFile" name="filterFile">
+            <label for="styleFile">Style</label>
+            <img id="styleImg">
+            <input type="file" id="styleFile" name="styleFile">
         </div>
         <div class="block form-group">
-            <label for="filterScale">Image Scale</label>
-            <select id="filterScale" name="filterScale">
+            <label for="style_scale">Image Scale</label>
+            <select id="style_scale" name="style_scale">
                 <option value="0.1">0.10</option>
                 <option value="0.25">0.25</option>
                 <option value="0.5">0.50</option>
@@ -107,12 +107,12 @@
             </select>
         </div>
         <div class="block form-group">
-            <label for="sizeInput">Image Size</label>
-            <input type="number" value="512" min="8" max="9999" id="sizeInput" name="sizeInput">
+            <label for="image_size">Image Size</label>
+            <input type="number" value="512" min="8" max="9999" id="image_size" name="image_size">
         </div>
         <div class="block form-group">
-            <label for="filterWeight">Filter Weight</label>
-            <select id="filterWeight" name="filterWeight">
+            <label for="style_weight">Style Weight</label>
+            <select id="style_weight" name="style_weight">
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -128,26 +128,26 @@
         <div class="block form-group">
             <label>Initial State</label>
             <div>
-                <input type="radio" name="initialState" value="image" id="initialImage" checked>
+                <input type="radio" name="initial_state" value="image" id="initialImage" checked>
                 <label for="initialImage">Image</label>
             </div>
             <div>
-                <input type="radio" name="initialState" value="random" id="initialRandom">
+                <input type="radio" name="initial_state" value="random" id="initialRandom">
                 <label for="initialRandom">Random</label>
             </div>
         </div>
         <div class="block form-group">
             <label>Gradients</label>
             <div>
-                <input type="checkbox" name="normalizeGradients" id="normalizeGradients">
-                <label for="normalizeGradients">Normalize</label>
+                <input type="checkbox" name="normalize_gradients" id="normalize_gradients">
+                <label for="normalize_gradients">Normalize</label>
             </div>
         </div>
         <div class="block form-group">
             <label>Original Colors</label>
             <div>
-                <input type="checkbox" name="originalColors" id="originalColors">
-                <label for="originalColors">Keep</label>
+                <input type="checkbox" name="original_colors" id="original_colors">
+                <label for="original_colors">Keep</label>
             </div>
         </div>
         <div class="block form-group">
@@ -156,7 +156,7 @@
     </form>
     <div id="tableDiv">
         <table>
-            <tr><th>Result</th><th>Info</th><th>Source</th><th>Filter</th></tr>
+            <tr><th>Result</th><th>Info</th><th>Source</th><th>Style</th></tr>
         </table>
     </div>
 </div>

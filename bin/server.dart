@@ -7,13 +7,21 @@ import 'dart:async';
 import 'package:mime/mime.dart' as Mime;
 import 'package:http_server/src/http_multipart_form_data.dart' as FormData;
 
-part 'task.dart';
-part 'init.dart';
-part 'last.dart';
-part 'upload.dart';
+part './task.dart';
+part './init.dart';
+part './last.dart';
+part './upload.dart';
 
 String webDir = Platform.script
-    .resolve('../web')
+    .resolve('../build/web')
+    .path;
+
+String nsDir = Platform.script
+    .resolve('../neural-style')
+    .path;
+
+String historyDir = Platform.script
+    .resolve('../history')
     .path;
 
 RegExp ipReg = new RegExp(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$');
@@ -58,14 +66,20 @@ handleRequest(HttpRequest request) async {
     String path = request.uri.path;
     print(path);
     if (path == '/' || path == '') {
-      path = '/index.html';
+      path = '/en.html';
     }
     if (path.contains('.')) {
       if (path.contains('..')) {
         request.response.statusCode = 404;
         await request.response.close();
       } else {
-        await sendFile(request.response, new File(webDir + path));
+        int pathStartChar = path.codeUnitAt(1);
+        if (pathStartChar >= 0x30 && pathStartChar <=0x39) {
+          await sendFile(request.response, new File(historyDir + path));
+        } else {
+          await sendFile(request.response, new File(webDir + path));
+        }
+
       }
     } else {
       if (path == '/init') {

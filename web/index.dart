@@ -9,7 +9,7 @@ part 'preview.dart';
 part 'full_img.dart';
 
 Preview contentPreview;
-Preview filterPreview;
+Preview stylePreview;
 FullImage fullImage;
 
 FormElement form;
@@ -21,8 +21,8 @@ String currentId;
 main() {
   contentPreview = new Preview(document.querySelector('#contentFile'),
       document.querySelector('#contentImg'));
-  filterPreview = new Preview(document.querySelector('#filterFile'),
-      document.querySelector('#filterImg'));
+  stylePreview = new Preview(document.querySelector('#styleFile'),
+      document.querySelector('#styleImg'));
   fullImage = new FullImage(document.querySelector('#fullImg'));
   table = document.querySelector('table');
   form = document.querySelector('form');
@@ -36,7 +36,7 @@ main() {
 
 onFormSubmit(Event e) {
   e.preventDefault();
-  if (contentPreview.isEmpty() || filterPreview.isEmpty()) {
+  if (contentPreview.isEmpty() || stylePreview.isEmpty()) {
     return;
   }
   FormData formData = new FormData(form);
@@ -53,9 +53,6 @@ onInitLoad(String str) {
   for (Map row in list) {
     TableRowElement tr = table.addRow();
     updateRow(row, tr);
-    if (row['id'] is String) {
-      currentId = row['id'];
-    }
   }
 }
 
@@ -66,7 +63,7 @@ updateRow(Map row, TableRowElement tr) {
   tr.addCell().append(
       new ImageElement(src: row['content'])..onClick.listen(onImageClicked));
   tr.addCell().append(
-      new ImageElement(src: row['filter'])..onClick.listen(onImageClicked));
+      new ImageElement(src: row['style'])..onClick.listen(onImageClicked));
   tr.dataset['id'] = row['id'];
   if (row['running'] == true) {
     currentId = row['id'];

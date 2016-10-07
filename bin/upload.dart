@@ -13,9 +13,9 @@ handleUpload(HttpRequest request, HttpResponse response) async {
 
   Map info = {};
   List contentData;
-  List filterData;
+  List styleData;
   String contentType = '';
-  String filterType = '';
+  String styleType = '';
 
   for (FormData.HttpMultipartFormData part in parts) {
     String name = part.contentDisposition.parameters['name'];
@@ -25,12 +25,12 @@ handleUpload(HttpRequest request, HttpResponse response) async {
           .split('/')
           .last;
       contentData = await part.fold([], (b, s) => b..addAll(s));
-    } else if (name == 'filterFile') {
-      filterType = part.contentType.toString();
-      info['filterName'] = 'filter.' + filterType
+    } else if (name == 'styleFile') {
+      styleType = part.contentType.toString();
+      info['styleName'] = 'style.' + styleType
           .split('/')
           .last;
-      filterData = await part.fold([], (b, s) => b..addAll(s));
+      styleData = await part.fold([], (b, s) => b..addAll(s));
     } else if (part.isText) {
       info[name] = await part.join();
     }
@@ -38,11 +38,11 @@ handleUpload(HttpRequest request, HttpResponse response) async {
 
   Task task = new Task(info);
 
-  if (!filterType.startsWith('image/') || !contentType.startsWith('image/')) {
+  if (!styleType.startsWith('image/') || !contentType.startsWith('image/')) {
     info['error'] = 'invalid image';
     task.create(); // save the error message;
     return;
   }
   task.create();
-  task.start(contentData, filterData);
+  await task.start(contentData, styleData);
 }

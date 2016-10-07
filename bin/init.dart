@@ -3,7 +3,7 @@ part of neural_style_server;
 RegExp spliter = new RegExp(r'[\\/]');
 
 handleInit(HttpResponse response) async {
-  Directory d = new Directory(webDir);
+  Directory d = new Directory(historyDir);
   List<FileSystemEntity> files = d.listSync(followLinks: false);
   List ids = [];
   for (FileSystemEntity file in files) {
@@ -24,7 +24,7 @@ handleInit(HttpResponse response) async {
     } else {
       Map row = {};
 
-      Directory taskd = new Directory(webDir + '/' + id);
+      Directory taskd = new Directory(historyDir + '/' + id);
       taskd.listSync(followLinks: false);
       List<FileSystemEntity> files = taskd.listSync(followLinks: false);
       int iter = 0;
@@ -37,7 +37,7 @@ handleInit(HttpResponse response) async {
             iter = 1000;
             break;
           } else {
-            int it = int.parse(fileName.substring(6, fileName.length - 4));
+            int it = int.parse(fileName.substring(7, fileName.length - 4));
             if (it > iter) {
               iter = it;
             }
@@ -48,16 +48,16 @@ handleInit(HttpResponse response) async {
         if (iter == 1000) {
           row['result'] = '$id/output.png';
         } else {
-          row['result'] = '$id/output$iter.png';
+          row['result'] = '$id/output_$iter.png';
         }
 
       }
-      File infoFile = new File(webDir + '/' + id + '/info.json');
+      File infoFile = new File(historyDir + '/' + id + '/info.json');
       Map info = JSON.decode(infoFile.readAsStringSync());
       row['id'] = id;
       row['info'] = info['date'] + '\n' + info['time'] + '\n+ $iter';
       row['content'] = "$id/${info['contentName']}";
-      row['filter'] = "$id/${info['filterName']}";
+      row['style'] = "$id/${info['styleName']}";
       initResult.add(row);
     }
   }
