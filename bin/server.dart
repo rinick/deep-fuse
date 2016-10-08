@@ -64,7 +64,6 @@ handleRequest(HttpRequest request) async {
   try {
 
     String path = request.uri.path;
-    print(path);
     if (path == '/' || path == '') {
       path = '/zh.html';
     }
