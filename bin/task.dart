@@ -68,6 +68,7 @@ class Task {
 
     List args = ['./neural_style.lua'];
     args.addAll(['-gpu', '-1']);
+    args.addAll(['-print_iter', '${outputStep~/5}']);
     args.addAll(['-save_iter', '$outputStep']);
     args.addAll(['-content_image', '../history/$id/${info["contentName"]}']);
     args.addAll(['-style_image', '../history/$id/${info["styleName"]}']);
