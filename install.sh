@@ -11,7 +11,9 @@ sudo dpkg -i --force-all dart_1.19.1-1_amd64.deb
 # 安装torch
 curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
 git clone https://github.com/torch/distro.git ~/torch --recursive
-yes | ./torch/install.sh
+cd torch
+yes | ./install.sh
+cd ..
 source ~/.bashrc
 
 # 安装caffee加载器
@@ -23,4 +25,5 @@ sh ./neural-style-server/neural-style/models/download_models.sh
 
 cd neural-style-server
 
-pub get; pub build;
+/usr/lib/dart/bin/pub get
+/usr/lib/dart/bin/pub build
