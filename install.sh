@@ -8,7 +8,7 @@ sudo dpkg -i --force-all dart_1.19.1-1_amd64.deb
 curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
 git clone https://github.com/torch/distro.git ~/torch --recursive
 cd torch
-yes yes | ./install.sh
+sed 's/read input/input="yes"/' < install.sh | bash
 cd ..
 source ~/.bashrc
 
