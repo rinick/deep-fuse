@@ -72,6 +72,15 @@
         background-color: #f8f8f8
     }
 
+    table tr.currentRow{
+        animation: blinkbg infinite;
+        animation-duration: 3s;
+    }
+    @keyframes blinkbg{
+        0%   {background: #FFF;}
+        50%  {background: #DDD;}
+        100% {background: #FFF;}
+    }
 
 </style>
 </head>
@@ -94,7 +103,7 @@
             <input type="file" id="styleFile" name="styleFile">
         </div>
         <div class="block form-group">
-            <label for="style_scale">样式比例</label>
+            <label for="style_scale">样式缩放</label>
             <select id="style_scale" name="style_scale">
                 <option value="0.1">0.10</option>
                 <option value="0.25">0.25</option>

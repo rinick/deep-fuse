@@ -79,8 +79,12 @@ updateRow(Map row, TableRowElement tr) {
       new ImageElement(src: row['style'])..onClick.listen(onImageClicked));
   tr.dataset['id'] = row['id'];
   if (row['running'] == true) {
+    if (currentTr != null) {
+      currentTr.classes.remove('currentRow');
+    }
     currentId = row['id'];
     currentTr = tr;
+    tr.classes.add('currentRow');
   }
 }
 
@@ -93,10 +97,17 @@ onTimer(Timer t) {
 }
 
 onUpdateLoad(String str) {
-  if (str.length < 5) return;
+  if (str.length < 5) {
+    if (currentTr != null) {
+      currentTr.classes.remove('currentRow');
+      currentTr = null;
+      currentId = null;
+    }
+  }
   Map row = JSON.decode(str);
   if (row['id'] == currentId) {
-    currentTr.cells[1].text = row['info'];
+    currentTr.cells[1].text = (row['info'] as String).replaceFirst(
+        'iteration', translate('iteration'));
     (currentTr.cells[0].querySelector('img') as ImageElement).src =
     row['result'];
   } else {

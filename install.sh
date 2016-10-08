@@ -20,3 +20,7 @@ luarocks install loadcaffe
 # 安装Neural Style Server
 git clone https://github.com/rinick/neural-style-server.git --recursive
 sh ./neural-style-server/neural-style/models/download_models.sh
+
+cd neural-style-server
+
+pub get; pub build;
