@@ -65,7 +65,13 @@ handleRequest(HttpRequest request) async {
 
     String path = request.uri.path;
     if (path == '/' || path == '') {
-      path = '/zh.html';
+      List lans = request.headers['accept-language'];
+      if (lans.isNotEmpty && lans[0].contains('zh')) {
+        path = '/zh.html';
+      } else {
+        path = '/en.html';
+      }
+
     }
     if (path.contains('.')) {
       if (path.contains('..')) {
