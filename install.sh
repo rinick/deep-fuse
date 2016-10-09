@@ -9,8 +9,8 @@ curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | 
 git clone https://github.com/torch/distro.git ~/torch --recursive
 cd torch
 sed 's/read input/input="yes"/' < install.sh | bash
+./install/bin/torch-activate
 cd ..
-source ~/.bashrc
 
 # 安装caffee加载器
 luarocks install loadcaffe
