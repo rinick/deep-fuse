@@ -52,4 +52,6 @@ cd ..
 mkdir build
 /usr/lib/dart/bin/dart2js -m -o web/index.dart.js web/index.dart
 cp -a web build
+sed -e 's/packages\/browser\/dart\.js"/index\.dart\.js"/' -i build/web/zh.html
+sed -e 's/packages\/browser\/dart\.js"/index\.dart\.js"/' -i build/web/en.html
 
