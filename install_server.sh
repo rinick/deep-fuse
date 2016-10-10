@@ -5,7 +5,7 @@
 curl -O -J -L https://github.com/rinick/sdk/releases/download/1.20.0-dev.10.1/dart_1.20.0-dev.10.1-1_amd64.deb
 sudo dpkg -i --force-all dart_1.20.0-dev.10.1-1_amd64.deb
 
-# a work around for the dart pub issue in windows 10 linux subsystem
+# a workaround for the dart pub issue in windows 10 linux subsystem
 
 mkdir -p ~/.pub-cache/hosted/pub.dartlang.org
 mkdir ~/.pub-cache/hosted/pub.dartlang.org/http_server-0.9.6
@@ -47,5 +47,9 @@ cd ..
 
 /usr/lib/dart/bin/pub get --offline
 
-/usr/lib/dart/bin/pub build
+# workaround for the the issue that pub build fails to open socket
+
+mkdir build
+/usr/lib/dart/bin/dart2js -m -o web/index.dart.js web/index.dart
+cp -a web build
 
