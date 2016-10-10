@@ -12,6 +12,9 @@ git clone https://github.com/rinick/neural-style-server.git --recursive
 cd neural-style-server/neural-style
 sh ./models/download_models.sh
 
+# 因为pub在win10子系统有bug，需要事先创建pub cache
+mkdir -p ~/.pub-cache/hosted/pub.dartlang.org
+
 cd ..
 
 /usr/lib/dart/bin/pub get -v
