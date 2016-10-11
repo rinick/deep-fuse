@@ -136,6 +136,7 @@ onUpdateLoad(String str) {
       currentTr = null;
       currentId = null;
     }
+    return;
   }
   Map row = JSON.decode(str);
   if (row['id'] == currentId) {

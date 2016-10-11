@@ -18,7 +18,7 @@ part 'upload.dart';
 part 'delete.dart';
 
 String webDir = Platform.script
-    .resolve('../web')
+    .resolve('../build/web')
     .path;
 
 String nsDir = Platform.script
