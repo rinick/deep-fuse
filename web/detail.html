@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="asserts/add-ons1.css">
+    <style>
+        html,body{
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+        }
+        img {
+            max-width: 100%;
+        }
+        table {
+            border: none;
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table th,
+        table td {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+        }
+
+        table tr {
+            background-color: #fff;
+            border-top: 1px solid #ccc
+        }
+    </style>
+</head>
+<body onclick="onBodyClick()">
+<pre id="json_content"></pre>
+<table>
+
+</table>
+<script>
+    var jsonStr = decodeURIComponent(location.hash.substring(1));
+    var json = JSON.parse(jsonStr);
+    document.querySelector('#json_content').innerText = JSON.stringify(json, null, '  ');
+
+    var id = json['id'];
+    var iter = json['iter'];
+    iter = Math.floor(iter / 5) * 5;
+    var table = document.querySelector('table');
+    var list = [];
+    for (var i = 50; i < iter; i += 50) {
+        list.push(i);
+    }
+    list.push(iter);
+    for (var i = list.length - 1; i >= 0; --i) {
+        var tr = document.createElement('tr');
+        var iter = list[i];
+        tr.innerHTML = '<td>' + iter + '</td><td><img src="' + id + '/output_' + iter + '.png"></td>'
+        table.appendChild(tr);
+    }
+    function onBodyClick() {
+        window.parent.postMessage('close', '*');
+    }
+</script>
+</body>
+</html>

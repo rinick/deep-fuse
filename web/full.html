@@ -21,7 +21,6 @@
 <img>
 <script>
     document.querySelector('img').src = decodeURIComponent(location.hash.substring(1));
-    console.log( decodeURIComponent(location.hash.substring(1)));
     function onBodyClick(){
         window.parent.postMessage('close','*');
     }

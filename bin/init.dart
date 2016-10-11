@@ -22,8 +22,7 @@ handleInit(HttpResponse response) async {
       Task.current.updateInfo();
       initResult.add(Task.current.info);
     } else {
-      Map row = {};
-
+      String rslt;
       Directory taskd = new Directory(historyDir + '/' + id);
       taskd.listSync(followLinks: false);
       List<FileSystemEntity> files = taskd.listSync(followLinks: false);
@@ -46,19 +45,18 @@ handleInit(HttpResponse response) async {
       }
       if (iter > 0) {
         if (iter == 1000) {
-          row['result'] = '$id/output.png';
+          rslt = '$id/output.png';
         } else {
-          row['result'] = '$id/output_$iter.png';
+          rslt = '$id/output_$iter.png';
         }
-
       }
       File infoFile = new File(historyDir + '/' + id + '/info.json');
       Map info = JSON.decode(infoFile.readAsStringSync());
-      row['id'] = id;
-      row['info'] = info['date'] + '\n' + info['time'] + '\niteration: $iter';
-      row['content'] = "$id/${info['contentName']}";
-      row['style'] = "$id/${info['styleName']}";
-      initResult.add(row);
+      info['result'] = rslt;
+      info['iter'] = iter;
+      info['content'] = "$id/${info['contentName']}";
+      info['style'] = "$id/${info['styleName']}";
+      initResult.add(info);
     }
   }
   response.write(JSON.encode(initResult));

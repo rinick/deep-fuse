@@ -40,7 +40,7 @@ class Task {
     info['running'] = running;
     info['content'] = "$id/${info['contentName']}";
     info['style'] = "$id/${info['styleName']}";
-    info['info'] = info['date'] + '\n' + info['time'] + '\niteration: $iter';
+    info['iter'] = iter;
     if (iter < outputStep) {
       info['result'] = 'asserts/waiting.gif';
     } else if (iter == 1000) {

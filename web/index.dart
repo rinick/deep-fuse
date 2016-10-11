@@ -6,11 +6,11 @@ import 'dart:html';
 
 part 'preview.dart';
 
-part 'full_img.dart';
+part 'popup_frame.dart';
 
 Preview contentPreview;
 Preview stylePreview;
-FullImage fullImage;
+Frame frame;
 
 FormElement form;
 TableElement table;
@@ -31,7 +31,7 @@ main() {
       document.querySelector('#contentImg'));
   stylePreview = new Preview(document.querySelector('#styleFile'),
       document.querySelector('#styleImg'));
-  fullImage = new FullImage(document.querySelector('#fullImg'));
+  frame = new Frame(document.querySelector('#popupFrame'));
   table = document.querySelector('table');
   form = document.querySelector('form');
 
@@ -71,8 +71,7 @@ onInitLoad(String str) {
 updateRow(Map row, TableRowElement tr) {
   tr.addCell().append(
       new ImageElement(src: row['result'])..onClick.listen(onImageClicked));
-  tr.addCell().appendText((row['info'] as String).replaceFirst(
-      'iteration', translate('iteration')));
+  updateInfoCell(tr.addCell(), row);
   tr.addCell().append(
       new ImageElement(src: row['content'])..onClick.listen(onImageClicked));
   tr.addCell().append(
@@ -88,8 +87,42 @@ updateRow(Map row, TableRowElement tr) {
   }
 }
 
+void updateInfoCell(TableCellElement cell, Map info) {
+  cell.children.clear();
+  cell.appendText("${translate('iteration')}: ${info['iter']}\n");
+
+  AnchorElement a0 = new AnchorElement();
+  a0.text = translate('detail');
+  a0.dataset['info'] = JSON.encode(info);
+  a0.onClick.listen(onDetailClicked);
+  cell.append(a0);
+
+  cell.appendText("\n${info['date']}\n");
+  cell.appendText(info['time'] + '\n');
+
+  AnchorElement a1 = new AnchorElement();
+  a1.text = translate('delete');
+  a1.onClick.listen(onDeleteClicked);
+  cell.append(a1);
+}
+
 onImageClicked(MouseEvent e) {
-  fullImage.show((e.target as ImageElement).src);
+  frame.showImg((e.target as ImageElement).src);
+}
+
+onDetailClicked(MouseEvent e) {
+  frame.showDetail((e.target as HtmlElement).dataset['info']);
+}
+
+onDeleteClicked(MouseEvent e) {
+  TableRowElement tr = (e.target as HtmlElement).parent.parent;
+  String id = tr.dataset['id'];
+  tr.remove();
+  HttpRequest.getString("/delete?id=$id");
+  if (tr == currentTr) {
+    currentTr = null;
+    currentId = null;
+  }
 }
 
 onTimer(Timer t) {
@@ -106,8 +139,7 @@ onUpdateLoad(String str) {
   }
   Map row = JSON.decode(str);
   if (row['id'] == currentId) {
-    currentTr.cells[1].text = (row['info'] as String).replaceFirst(
-        'iteration', translate('iteration'));
+    updateInfoCell(currentTr.cells[1], row);
     (currentTr.cells[0].querySelector('img') as ImageElement).src =
     row['result'];
   } else {

@@ -1,15 +1,20 @@
 part of neural_style_client;
 
 
-class FullImage {
+class Frame {
   IFrameElement iframe;
 
-  FullImage(this.iframe) {
+  Frame(this.iframe) {
     window.onMessage.listen(onWindowMessage);
   }
 
-  show(String src) {
+  showImg(String src) {
     iframe.src = 'full.html#' + Uri.encodeComponent(src);
+    iframe.style.display = '';
+  }
+
+  showDetail(String json) {
+    iframe.src = 'detail.html#' + Uri.encodeComponent(json);
     iframe.style.display = '';
   }
 

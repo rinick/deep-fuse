@@ -7,13 +7,18 @@ import 'dart:async';
 import 'package:mime/mime.dart' as Mime;
 import 'package:http_server/src/http_multipart_form_data.dart' as FormData;
 
-part './task.dart';
-part './init.dart';
-part './last.dart';
-part './upload.dart';
+part 'task.dart';
+
+part 'init.dart';
+
+part 'last.dart';
+
+part 'upload.dart';
+
+part 'delete.dart';
 
 String webDir = Platform.script
-    .resolve('../build/web')
+    .resolve('../web')
     .path;
 
 String nsDir = Platform.script
@@ -29,6 +34,8 @@ RegExp ipReg = new RegExp(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$');
 main(List<String> arguments) {
   if (webDir.codeUnitAt(2) == 58 /* for windows path /C:/ */) {
     webDir = webDir.substring(1);
+    nsDir = nsDir.substring(1);
+    historyDir = historyDir.substring(1);
   }
   if (webDir.endsWith('/')) {
     webDir.substring(0, webDir.length - 1);
@@ -62,7 +69,6 @@ main(List<String> arguments) {
 
 handleRequest(HttpRequest request) async {
   try {
-
     String path = request.uri.path;
     if (path == '/' || path == '') {
       List lans = request.headers['accept-language'];
@@ -71,7 +77,6 @@ handleRequest(HttpRequest request) async {
       } else {
         path = '/en.html';
       }
-
     }
     if (path.contains('.')) {
       if (path.contains('..')) {
@@ -79,12 +84,11 @@ handleRequest(HttpRequest request) async {
         await request.response.close();
       } else {
         int pathStartChar = path.codeUnitAt(1);
-        if (pathStartChar >= 0x30 && pathStartChar <=0x39) {
+        if (pathStartChar >= 0x30 && pathStartChar <= 0x39) {
           await sendFile(request.response, new File(historyDir + path));
         } else {
           await sendFile(request.response, new File(webDir + path));
         }
-
       }
     } else {
       if (path == '/init') {
@@ -93,13 +97,14 @@ handleRequest(HttpRequest request) async {
         await handleLast(request.response);
       } else if (path == '/upload') {
         await handleUpload(request, request.response);
+      } else if (path == '/delete') {
+        await handleDelete(request, request.response);
       }
-}
+    }
   } catch (err) {
     print(err);
   }
   await request.response.close();
-
 }
 
 sendFile(HttpResponse response, File file) async {

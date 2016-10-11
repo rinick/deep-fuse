@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # 安装Dart，( 因为官方下载国内用不了，我把安装包复制在github上 )
-wget https://github.com/rinick/dart_sdk/releases/download/1.19.1/dart_1.19.1-1_amd64.deb
-sudo dpkg -i --force-all dart_1.19.1-1_amd64.deb
+
 
 # 安装torch
 curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
