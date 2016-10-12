@@ -1,4 +1,4 @@
-part of neural_style_server;
+part of deep_fuse;
 
 handleDelete(HttpRequest request, HttpResponse response) async {
   String id = request.uri.queryParameters['id'];

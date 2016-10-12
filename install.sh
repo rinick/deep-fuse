@@ -14,9 +14,9 @@ cd ..
 # 安装caffee加载器
 luarocks install loadcaffe
 
-# 安装Neural Style Server
-git clone https://github.com/rinick/neural-style-server.git --recursive
-cd neural-style-server/neural-style
+# 安装Deep Fuse
+git clone https://github.com/rinick/deep-fuse.git --recursive
+cd deep-fuse/neural-style
 sh ./models/download_models.sh
 
 cd ..

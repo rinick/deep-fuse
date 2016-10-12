@@ -1,4 +1,4 @@
-library neural_style_server;
+library deep_fuse;
 
 
 import 'dart:io';

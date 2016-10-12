@@ -1,4 +1,4 @@
-part of neural_style_server;
+part of deep_fuse;
 
 
 handleUpload(HttpRequest request, HttpResponse response) async {

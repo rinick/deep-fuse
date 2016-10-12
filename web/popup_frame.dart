@@ -1,4 +1,4 @@
-part of neural_style_client;
+part of deep_fuse_web;
 
 
 class Frame {

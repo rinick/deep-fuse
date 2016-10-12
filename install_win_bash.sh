@@ -35,10 +35,10 @@ rm 0.10.0%2B2.tar.gz
 
 luarocks install loadcaffe
 
-# install Neural Style Server
+# install Deep Fuse
 
-git clone https://github.com/rinick/neural-style-server.git --recursive
-cd neural-style-server/neural-style
+git clone https://github.com/rinick/deep-fuse.git --recursive
+cd deep-fuse/neural-style
 sh ./models/download_models.sh
 
 cd ..

@@ -1,4 +1,4 @@
-part of neural_style_server;
+part of deep_fuse;
 
 class Task {
 

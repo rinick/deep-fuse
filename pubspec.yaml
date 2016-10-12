@@ -1,9 +1,9 @@
-name: neural_style_server
+name: deep_fuse
 version: 0.1.0
 description: >
   web server for neural style
 author: rinick <rinick@gmail.com>
-homepage: https://github.com/rinick/neural-style-server
+homepage: https://github.com/rinick/deep-fuse
 
 dependencies:
   browser: ^0.10.0

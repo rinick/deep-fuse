@@ -1,4 +1,4 @@
-library neural_style_client;
+library deep_fuse_web;
 
 import 'dart:async';
 import 'dart:convert';
