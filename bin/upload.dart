@@ -4,7 +4,7 @@ part of deep_fuse;
 handleUpload(HttpRequest request, HttpResponse response) async {
   String boundary = request.headers.contentType.parameters['boundary'];
 
-  List parts = await request.transform(
+  List parts = await request.timeout(new Duration(seconds:5)).transform(
       new Mime.MimeMultipartTransformer(boundary))
       .map((part) {
     return FormData.HttpMultipartFormData.parse(
